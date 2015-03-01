@@ -1,0 +1,1 @@
+脚本在server/data/autoPull.py
