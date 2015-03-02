@@ -56,14 +56,14 @@ def RunPull(paths):
         f.write('--------------- ' + now_time + ' ----------------\n')
     
     for folder in paths:
-        i = os.path.join(now_path, (folder + '-' + paths[folder][0]).encode('utf-8'))
+        i = os.path.join(now_path.decode('utf-8'), (folder + '-' + paths[folder][0]))
         name = folder
         try:
             os.chdir(i)
             now_branch = subprocess.check_output(['git', 'branch']).split(' ')[-1].strip('\n') or 'master'
             now_origin = subprocess.check_output(['git', 'remote']).strip('\n') or 'origin'
             output = subprocess.check_output(['git', 'pull', now_origin, now_branch])
-            with open(os.path.join(log_path, (u'{name}.log'.format(name=name)).encode('utf-8')), 'a') as f:
+            with open(os.path.join(log_path.decode('utf-8'), u'{name}.log'.format(name=name)), 'a') as f:
                 f.write("---------- " +
                         now_time.encode('utf-8') +
                         ' ' +
@@ -74,20 +74,20 @@ def RunPull(paths):
         except subprocess.CalledProcessError, e:
             logging.exception(e)
             with open(os.path.join(now_path, 'log/error.log'), 'a') as f:
-                f.write("Failed :" + name + '\n')
+                f.write("Failed :" + name.encode('utf-8') + '\n')
 
 def initGit(paths):
     for folder in paths:
-        p = os.path.join(now_path, (folder + '-' + paths[folder][0]).encode('utf-8'))
+        p = os.path.join(now_path.decode('utf-8'), (folder + '-' + paths[folder][0]))
         if not os.path.exists(p):
             os.mkdir(p)
             os.chdir(p)
+            print p
             subprocess.call(["git", "init"])
             subprocess.call(["git", "remote", "add", "origin", paths[folder][1]])
 
 if __name__ == "__main__":
     now_path = os.path.abspath(".")
-    print responsitories
     paths = pathConver(responsitories)
     initGit(paths)
     os.chdir(now_path)
