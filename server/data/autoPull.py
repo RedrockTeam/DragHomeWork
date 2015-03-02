@@ -79,15 +79,12 @@ def RunPull(paths):
 
 def initGit(paths):
     for folder in paths:
-        print folder
-        print paths[folder]
-        # p = os.path.join(now_path.decode('utf-8'), (folder + '-' + paths[folder][0]))
-        # if not os.path.exists(p):
-        #     os.mkdir(p)
-        #     os.chdir(p)
-        #     print p
-        #     subprocess.call(["git", "init"])
-        #     subprocess.call(["git", "remote", "add", "origin", paths[folder][1]])
+        p = os.path.join(now_path.decode('utf-8'), (folder + '-' + paths[folder][0]))
+        if not os.path.exists(p):
+            os.mkdir(p)
+            os.chdir(p)
+            subprocess.call(["git", "init"])
+            subprocess.call(["git", "remote", "add", "origin", paths[folder][1]])
 
 if __name__ == "__main__":
     now_path = os.path.abspath(".")
