@@ -13,12 +13,13 @@ def pathConver(responsitories):
         repo = unicode(repo, 'utf-8')
         path = repo.split('/')[-1]
         name = repo.split('??')[0]
-        responsitoriy = repo.split("??")[-1]
-        if (path.endswith('.git')):
-            path = path.rsplit('.git')
-        paths[name] = []
-        paths[name].append(path)
-        paths[name].append(responsitoriy)
+        responsitoriy = repo.split("??")[-1]                
+        if len(name) > 0 and len(responsitoriy) > 0 :
+            if (path.endswith('.git')):
+                path = path.rsplit('.git')
+            paths[name] = []
+            paths[name].append(path)      
+            paths[name].append(responsitoriy)
     
     return paths
 
