@@ -58,11 +58,13 @@ def RunPull(paths):
     
     for folder in paths:
         i = os.path.join(now_path.decode('utf-8'), (folder + '-' + paths[folder][0]))
+        responsitory = paths[folder][1]
         name = folder
         try:
             os.chdir(i)
             now_branch = subprocess.check_output(['git', 'branch']).split(' ')[-1].strip('\n') or 'master'
             now_origin = subprocess.check_output(['git', 'remote']).strip('\n') or 'origin'
+            print 'git is going to pull ' + responsitory
             output = subprocess.check_output(['git', 'pull', now_origin, now_branch])
             with open(os.path.join(log_path.decode('utf-8'), u'{name}.log'.format(name=name)), 'a') as f:
                 f.write("---------- " +
