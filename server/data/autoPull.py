@@ -16,7 +16,7 @@ def pathConver(responsitories):
         responsitoriy = repo.split("??")[-1]                
         if len(name) > 0 and len(responsitoriy) > 0 :
             if (path.endswith('.git')):
-                path = path.rsplit('.git')
+                path = path.rsplit('.git')[0]
             paths[name] = []
             paths[name].append(path)      
             paths[name].append(responsitoriy)
@@ -79,13 +79,15 @@ def RunPull(paths):
 
 def initGit(paths):
     for folder in paths:
-        p = os.path.join(now_path.decode('utf-8'), (folder + '-' + paths[folder][0]))
-        if not os.path.exists(p):
-            os.mkdir(p)
-            os.chdir(p)
-            print p
-            subprocess.call(["git", "init"])
-            subprocess.call(["git", "remote", "add", "origin", paths[folder][1]])
+        print folder
+        print paths[folder]
+        # p = os.path.join(now_path.decode('utf-8'), (folder + '-' + paths[folder][0]))
+        # if not os.path.exists(p):
+        #     os.mkdir(p)
+        #     os.chdir(p)
+        #     print p
+        #     subprocess.call(["git", "init"])
+        #     subprocess.call(["git", "remote", "add", "origin", paths[folder][1]])
 
 if __name__ == "__main__":
     now_path = os.path.abspath(".")
